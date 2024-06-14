@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "resident-schedule-optimizer-public"
+version = "0.1.0"
+description = ""
+authors = ["Blade Chapman"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+ortools = "^9.9.3963"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.pyright]
+venvPath = "."
+venv = ".venv"
