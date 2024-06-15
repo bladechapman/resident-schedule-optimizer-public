@@ -4,7 +4,9 @@ from all_schedules import all_possible_schedules
 from group_schedules import group_schedules
 from common import Grouping
 from flow_solver import Solver
-
+from base64 import standard_b64encode
+import os
+import pickle
 
 def build_subgraph_for_grouping(solver: Solver,
                                 grouping: Grouping,
@@ -89,9 +91,17 @@ if __name__ == "__main__":
     with open("preferences.csv", newline="") as csvfile:
         rotations, sub_specialties, residents, preferences = parse_csv(csvfile)
 
-        all_schedules = all_possible_schedules(sub_specialties)
-        all_groups = group_schedules(all_schedules, len(sub_specialties))
-        # since group_schedules takes a long time, you could pickle it after the first compute 
+        # since group_schedules takes a long time, we pickle it after the first compute 
+        cache_key = standard_b64encode(",".join(sub_specialties).encode("ascii")).decode("utf8")
+        cache_file_location = f".cached/{cache_key}.pkl"
+        if os.path.isfile(cache_file_location):
+            with open(cache_file_location, 'rb') as f:
+                all_groups = pickle.load(f)
+        else:
+            all_schedules = all_possible_schedules(sub_specialties)
+            all_groups = group_schedules(all_schedules, len(sub_specialties))
+            with open(cache_file_location, 'wb') as f:
+                pickle.dump(all_groups, f)
 
         solver = Solver()
         for i in range(len(all_groups)):
