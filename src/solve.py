@@ -3,7 +3,7 @@ from csv_utils import parse_csv
 from all_schedules import all_possible_schedules
 from group_schedules import group_schedules
 from common import Grouping
-from flow_solver import Solver
+from network_flow import Solver
 from base64 import standard_b64encode
 import os
 import pickle
@@ -92,7 +92,7 @@ if __name__ == "__main__":
         rotations, sub_specialties, residents, preferences = parse_csv(csvfile)
 
         # since group_schedules takes a long time, we pickle it after the first compute 
-        cache_key = standard_b64encode(",".join(sub_specialties).encode("ascii")).decode("utf8")
+        cache_key = standard_b64encode(",".join(sorted(sub_specialties)).encode("ascii")).decode("utf8")
         cache_file_location = f".cache.{cache_key}.pkl"
         if os.path.isfile(cache_file_location):
             with open(cache_file_location, 'rb') as f:
