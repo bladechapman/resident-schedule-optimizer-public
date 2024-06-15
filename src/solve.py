@@ -93,7 +93,7 @@ if __name__ == "__main__":
 
         # since group_schedules takes a long time, we pickle it after the first compute 
         cache_key = standard_b64encode(",".join(sub_specialties).encode("ascii")).decode("utf8")
-        cache_file_location = f".cached/{cache_key}.pkl"
+        cache_file_location = f".cache.{cache_key}.pkl"
         if os.path.isfile(cache_file_location):
             with open(cache_file_location, 'rb') as f:
                 all_groups = pickle.load(f)
