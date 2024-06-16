@@ -1,3 +1,10 @@
+```
+$ poetry shell
+$ python3 src/solve.py
+```
+
+---
+
 Consider the following problem:
 
 > A class of 6 ophthalmology residents need to work together to build their class' schedules for the upcoming year. Each resident's year is split into 6 periods called "rotations", where each rotation must be assigned to one of six sub-specialty positions (e.g. Retina, Cornea, Oculoplastics, etc.). The following constraints must be met:
