@@ -36,22 +36,6 @@ The max-flow / min-cost flow through this graph gives us the optimal assignment 
 ### Not so fast.
 Except to do this, we need to come up with a list of every possible schedule grouping that meets our requirements. We can express the algorithm for generating all groupings using this recurrence:
 <img src="attachment/06d301514b8532a0cd3dcf25e1a90625.png" />
-%%
-\documentclass{article}
-\usepackage{amsmath}
-
-\begin{document}
-
-\begin{equation}
-  g(i, c)=\begin{cases}
-    \{c\}, & \text{if $|c| = 6$}\\
-    \emptyset, & \text{if $i = 6!$}\\
-    g(i+1, c) \cup g(i+1, c \cup S_i), & \text{otherwise}
-  \end{cases}
-\end{equation}
-
-\end{document}
-%%
 _note: `i` is initialized to zero and `c` is initialized as the empty set_.
 
 Without being clever, this takes a **really** long time to complete for our class of 6. Luckily, it turns out there are gains to be had via Dynamic Programming. The recurrence at its core describes a pattern of comparing each schedule to every other possible schedule to build valid groups. I've found these "compare A with B" recurrences benefit from 2D matrix memoization structures. If we trace the path of execution through this structure, we find where the recurrence overlaps and in turn find our opportunity for improvement. Again, the example below is using schedules made of 3 subspecialties for clarity.
